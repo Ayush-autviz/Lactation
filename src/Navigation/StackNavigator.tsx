@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './BottomTabNavigator';
 
 
+
 export type StackParamList = {
   Tabs: undefined;
   Details: undefined;

@@ -45,8 +45,6 @@ export const SIZES = {
 	padding:15,
 	margin:15,
 
-	container : 800,
-
     //Font Sizes
     h1:34,
     h2:28,
@@ -66,6 +64,7 @@ export const FONTS = {
 	fontSm : {fontSize:SIZES.fontSm,color: COLORS.text, lineHeight:20, fontFamily:'Poppins-Regular'},
 	fontXs : {fontSize:SIZES.fontXs,color: COLORS.text, lineHeight:14, fontFamily:'Poppins-Regular'},
 	fontLg : {fontSize:SIZES.fontLg,color: COLORS.text, lineHeight:24, fontFamily:'Poppins-Regular'},
+
     h1     : {fontSize:SIZES.h1, color:COLORS.title, fontFamily:'Raleway-Bold'},
     h2     : {fontSize:SIZES.h2, color:COLORS.title, fontFamily:'Raleway-Bold'},
     h3     : {fontSize:SIZES.h3, color:COLORS.title, fontFamily:'Raleway-Bold'},
