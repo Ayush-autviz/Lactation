@@ -2,8 +2,8 @@ import { Dimensions } from "react-native";
 const {width,height} = Dimensions.get('screen');
 
 export const COLORS = {
-	primary : "#9FE96E",
-	secondary : "#000",
+	primary : "#2CBDCB",
+	secondary : "#CB2C6E",
 	success : "#43CD8B",
 	danger  : "#E12344",
 	warning : "#ffb02c",
@@ -18,7 +18,7 @@ export const COLORS = {
 	background : "#F5F5F5",
 	text : "rgba(0,0,0,.6)",
 	title : "#000",
-	borderColor : "rgba(0,0,0,.1)",
+	borderColor : "#B5B5B5",
 	input : "rgba(0,0,0,.03)",
 	
 	//dark theme
@@ -46,7 +46,7 @@ export const SIZES = {
 	margin:15,
 
     //Font Sizes
-    h1:34,
+    h1:30,
     h2:28,
     h3:24,
     h4:20,
@@ -60,17 +60,17 @@ export const SIZES = {
 };
 
 export const FONTS = {
-    font   : {fontSize:SIZES.font,color: COLORS.text, lineHeight:20, fontFamily:'Poppins-Regular'},
-	fontSm : {fontSize:SIZES.fontSm,color: COLORS.text, lineHeight:20, fontFamily:'Poppins-Regular'},
-	fontXs : {fontSize:SIZES.fontXs,color: COLORS.text, lineHeight:14, fontFamily:'Poppins-Regular'},
-	fontLg : {fontSize:SIZES.fontLg,color: COLORS.text, lineHeight:24, fontFamily:'Poppins-Regular'},
+    font   : {fontSize:SIZES.font,color: COLORS.text, lineHeight:20, fontFamily:'Lato-Regular'},
+	fontSm : {fontSize:SIZES.fontSm,color: COLORS.text, lineHeight:20, fontFamily:'Lato-Regular'},
+	fontXs : {fontSize:SIZES.fontXs,color: COLORS.text, lineHeight:14, fontFamily:'Lato-Regular'},
+	fontLg : {fontSize:SIZES.fontLg,color: COLORS.text, lineHeight:24, fontFamily:'Lato-Regular'},
 
-    h1     : {fontSize:SIZES.h1, color:COLORS.title, fontFamily:'Raleway-Bold'},
-    h2     : {fontSize:SIZES.h2, color:COLORS.title, fontFamily:'Raleway-Bold'},
-    h3     : {fontSize:SIZES.h3, color:COLORS.title, fontFamily:'Raleway-Bold'},
-    h4     : {fontSize:SIZES.h4, color:COLORS.title, fontFamily:'Raleway-Bold'},
-    h5     : {fontSize:SIZES.h5, color:COLORS.title, fontFamily:'Raleway-Bold'},
-    h6     : {fontSize:SIZES.h6, color:COLORS.title, fontFamily:'Raleway-Bold'},
+    h1     : {fontSize:SIZES.h1, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
+    h2     : {fontSize:SIZES.h2, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
+    h3     : {fontSize:SIZES.h3, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
+    h4     : {fontSize:SIZES.h4, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
+    h5     : {fontSize:SIZES.h5, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
+    h6     : {fontSize:SIZES.h6, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
 
 	fontMedium : {fontFamily : 'Raleway-Medium'},
 	fontSemiBold : {fontFamily : 'Raleway-SemiBold'},
