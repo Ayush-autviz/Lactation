@@ -12,14 +12,23 @@ import {
 } from 'react-native';
 import Header from '../Components/Header';
 import { COLORS, FONTS, SIZES } from '../Constants/Theme';
+import { useVerifyOtpMutation } from '../store/apis/publicAuthApi';
+import { BallIndicator } from 'react-native-indicators';
+import { navigate } from '../utils/NavigationUtil';
+import Snackbar from 'react-native-snackbar';
 // For icons (you can use any icon library)
 
 // Define the props for the component (if needed)
-interface VerificationScreenProps {}
+interface VerificationScreenProps {
+  route:any
+}
 
 // Main Verification Screen Component
-const OtpScreen: React.FC<VerificationScreenProps> = () => {
+const OtpScreen: React.FC<VerificationScreenProps> = ({route}) => {
+  const email = route?.params?.email;
+  console.log(email,'email')
   const [code, setCode] = useState<string[]>(['', '', '', '']); // State to store the 4-digit code
+  const [verifyOtp, { isLoading, error }] = useVerifyOtpMutation();
 
   // Handle number press
   const handleNumberPress = (number: string) => {
@@ -46,14 +55,35 @@ const OtpScreen: React.FC<VerificationScreenProps> = () => {
   };
 
   // Handle verify button press
-  const handleVerifyPress = () => {
-    const enteredCode = code.join('');
+  const handleVerifyPress = async () => {
+     const enteredCode = code.join('');
     if (enteredCode.length === 4) {
       console.log('Verifying code:', enteredCode);
-      // Add your verification logic here
+          try {
+      const data = {
+        email: "kaku26301@gmail.com",
+        otp: enteredCode
+      };  
+      const response = await verifyOtp(data).unwrap();
+      Snackbar.show({
+        text: 'Otp verified sucessfully',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+      navigate("CreateNewPassword",{email:email,reset_token:response.data.reset_token})      
+    } catch (err: any) {
+      const errorMessage = err?.data?.message || 'Login failed. Please try again.';
+      Snackbar.show({
+        text: 'Invalid otp',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+      console.log(err)
+    }
     } else {
       console.log('Please enter a 4-digit code');
     }
+   
   };
 
   return (
@@ -125,8 +155,8 @@ const OtpScreen: React.FC<VerificationScreenProps> = () => {
       </View>
 
       {/* Verify Button */}
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Send</Text>
+      <TouchableOpacity onPress={handleVerifyPress} style={styles.loginButton}>
+      {isLoading ? <BallIndicator size={20} color="#fff" /> : <Text style={styles.loginButtonText}>Submit</Text>}
       </TouchableOpacity>
       </View>
     </ScrollView>
@@ -237,6 +267,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
+    height:50
   },
   loginButtonText: {
     color: '#fff',

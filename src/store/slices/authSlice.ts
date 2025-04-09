@@ -1,19 +1,34 @@
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface User {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  tenant: string;
+  tenant_schema: string;
+}
+
 interface AuthState {
-  user: string | null; // You can replace with a User interface/type
-  token: string | null;
+  user: User | null;
+  accessToken: string | null;
+  refreshToken: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
+  domain : String | null
 }
 
 const initialState: AuthState = {
   user: null,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
+  domain : null,
 };
 
 export const authSlice = createSlice({
@@ -26,10 +41,15 @@ export const authSlice = createSlice({
     },
     loginSuccess: (
       state,
-      action: PayloadAction<{ user: string; token: string }>
+      action: PayloadAction<{
+        user: User;
+        accessToken: string;
+        refreshToken: string;
+      }>
     ) => {
       state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.error = null;
@@ -40,20 +60,19 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
-      state.token = null;
+      state.accessToken = null;
+      state.refreshToken = null;
       state.isAuthenticated = false;
       state.isLoading = false;
       state.error = null;
     },
-    updateUser: (state, action: PayloadAction<string>) => {
-      state.user = action.payload;
+    updateDomain: (state, action: PayloadAction<string>) => {
+      state.domain = action.payload;
     },
   },
 });
 
-// Export actions
-export const { loginStart, loginSuccess, loginFailure, logout, updateUser } =
+export const { loginStart, loginSuccess, loginFailure, logout, updateDomain } =
   authSlice.actions;
 
-// Export reducer
 export default authSlice.reducer;

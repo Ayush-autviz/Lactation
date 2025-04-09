@@ -31,8 +31,9 @@ export const COLORS = {
 }
 
 export const SIZES = {
-	fontLg:16,
+	fontLg:18,
     font:14,
+	fontMd:16,
 	fontSm:13,
 	fontXs:12,
 
@@ -64,6 +65,7 @@ export const FONTS = {
 	fontSm : {fontSize:SIZES.fontSm,color: COLORS.text, lineHeight:20, fontFamily:'Lato-Regular'},
 	fontXs : {fontSize:SIZES.fontXs,color: COLORS.text, lineHeight:14, fontFamily:'Lato-Regular'},
 	fontLg : {fontSize:SIZES.fontLg,color: COLORS.text, lineHeight:24, fontFamily:'Lato-Regular'},
+	fontMd : {fontSize:SIZES.fontMd,color: COLORS.text, lineHeight:20, fontFamily:'Lato-Regular'},
 
     h1     : {fontSize:SIZES.h1, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
     h2     : {fontSize:SIZES.h2, color:COLORS.title, fontFamily:'JosefinSans-Medium'},

@@ -6,6 +6,8 @@ import LoginScreen from '../Screens/LoginScreen';
 import ResetPassword from '../Screens/ResetPassword';
 import CreateNewPassword from '../Screens/CreateNewPassword';
 import OtpScreen from '../Screens/OtpScreen';
+import NotificationScreen from '../Screens/NotificationScreen';
+import TimeSelector from '../Screens/SlotScreens';
 
 
 
@@ -16,7 +18,9 @@ export type StackParamList = {
   Login:undefined;
   ResetPassword:undefined;
   CreateNewPassword:undefined;
-  OtpScreen:undefined
+  OtpScreen:undefined;
+  Notification:undefined;
+  SlotScreen:undefined;
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -27,12 +31,15 @@ const StackNavigator: React.FC = () => {
     <Stack.Screen
      name='Splash' 
      component={Splash}
-     options={{ headerShown: false }}
+     options={{ headerShown: false
+    }}
      />
       <Stack.Screen 
         name="Tabs" 
         component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={{ headerShown: false,
+          animation:"fade"
+        }}
       />
       <Stack.Screen 
         name="Login" 
@@ -45,6 +52,11 @@ const StackNavigator: React.FC = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen 
+        name="Notification" 
+        component={NotificationScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
         name="CreateNewPassword" 
         component={CreateNewPassword}
         options={{ headerShown: false }}
@@ -52,6 +64,11 @@ const StackNavigator: React.FC = () => {
       <Stack.Screen 
         name="OtpScreen" 
         component={OtpScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="SlotScreen" 
+        component={TimeSelector}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

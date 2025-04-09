@@ -1,19 +1,81 @@
 // LoginScreen.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import { COLORS, FONTS } from '../Constants/Theme';
 import Input from '../Components/Input';
 import { navigate } from '../utils/NavigationUtil';
 import Header from '../Components/Header';
+import { useGetDomainMutation, useLoginMutation } from '../store/apis/publicAuthApi';
+import { useDispatch } from 'react-redux';
+import { loginFailure, loginStart, loginSuccess, updateDomain } from '../store/slices/authSlice';
+import { BallIndicator } from 'react-native-indicators';
+import Snackbar from 'react-native-snackbar';
 
 
 const LoginScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>('info@gmail.com');
-  const [password, setPassword] = useState<string>('••••••••••••');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [login, { isLoading, error }] = useLoginMutation();
+  const [getdomain, { isLoading:getDomainLoading, error:getDomainError }] = useGetDomainMutation();
+  const dispatch = useDispatch();
+
+  console.log(password,'password')
 
   const handleNavigation = ()=>{
     navigate("ResetPassword")
   }
+
+
+
+  const handleLogin = async () => {
+
+    try {
+      const credentials = {
+        email: email,
+        password: password
+      };
+
+     // const domain = await getdomain({email:email}).unwrap()
+      
+
+     // console.log(domain,'dpomainn')
+      
+      const response = await login(credentials).unwrap();
+     // dispatch(updateDomain(domain.data.domain));
+
+      console.log(response,'response');
+      
+      // Assuming the response matches your provided structure
+      const authData = {
+        user: response.data.user,
+        accessToken: response.data.access,
+        refreshToken: response.data.refresh
+      };
+
+      console.log(authData,'authData')
+      Snackbar.show({
+        text: 'Login successfuly',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary,
+        fontFamily:'Lato-Regular'
+      });
+      dispatch(updateDomain(response.data.user.domain));
+      dispatch(loginSuccess(authData));
+
+      navigate('Tabs'); // Adjust to your main screen route
+      
+    } catch (err: any) {
+      const errorMessage = err?.data?.message || 'Login failed. Please try again.';
+      console.log(err)
+
+      Snackbar.show({
+        text: 'Login failed',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+      dispatch(loginFailure(errorMessage));
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -37,7 +99,7 @@ const LoginScreen: React.FC = () => {
       <Input
         value={email}
         onChangeText={setEmail}
-        placeholder="info@gmail.com"
+        placeholder="email@gmail.com"
         iconSource={require('../assets/images/email.png') as ImageSourcePropType}
       />
 
@@ -56,8 +118,8 @@ const LoginScreen: React.FC = () => {
       </TouchableOpacity>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Login</Text>
+      <TouchableOpacity onPress={handleLogin} style={[styles.loginButton]} disabled={isLoading}>
+        {isLoading ? <BallIndicator size={20} color="#fff" /> : <Text style={styles.loginButtonText}>Login</Text>}
       </TouchableOpacity>
     </View>
   );
@@ -104,11 +166,13 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
+    height:50
   },
   loginButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    
   },
 });
 

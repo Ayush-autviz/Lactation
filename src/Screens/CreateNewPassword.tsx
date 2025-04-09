@@ -4,15 +4,53 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType } 
 import { COLORS, FONTS } from '../Constants/Theme';
 import Input from '../Components/Input';
 import Header from '../Components/Header';
+import { useResetPasswordMutation } from '../store/apis/publicAuthApi';
+import { BallIndicator } from 'react-native-indicators';
+import Snackbar from 'react-native-snackbar';
+import { resetAndNavigate } from '../utils/NavigationUtil';
 
 type ResetPasswordScreenProps = {
     navigation: any;
+    route:any
 };
 
 
-const CreateNewPassword: React.FC<ResetPasswordScreenProps> = () => {
-  const [email, setEmail] = useState<string>('info@gmail.com');
+const CreateNewPassword: React.FC<ResetPasswordScreenProps> = ({route}) => {
+  const email = route.params.email;
+  const reset_token = route.params.reset_token;
   const [password, setPassword] = useState<string>('••••••••••••');
+  const [confirmPassword, setconfirmPassword] = useState<string>('••••••••••••');
+
+
+  const [resetPassword, { isLoading, error }] = useResetPasswordMutation();
+
+  const handleLogin = async () => {
+    try {
+      const data = {
+        email:email,
+        reset_token: reset_token,
+        new_password: password,
+        confirm_password: confirmPassword
+      };
+      console.log(data,'data')
+      const response = await resetPassword(data).unwrap();
+      console.log(response,'response'); 
+      Snackbar.show({
+        text: 'Password Reset Sucessfully',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+      resetAndNavigate("Login")
+    } catch (err: any) {
+      const errorMessage = err?.data?.message || 'Login failed. Please try again.';
+      console.log(err)
+      Snackbar.show({
+        text: 'Failed to reset the Password',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -44,16 +82,16 @@ const CreateNewPassword: React.FC<ResetPasswordScreenProps> = () => {
 
       <Text style={styles.label}>Confirm Password</Text>
       <Input
-        value={password}
-        onChangeText={setPassword}
+        value={confirmPassword}
+        onChangeText={setconfirmPassword}
         placeholder="••••••••••••"
         secureTextEntry
         iconSource={require('../assets/images/lock.png') as ImageSourcePropType}
       />
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Send</Text>
+      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+      {isLoading ? <BallIndicator size={20} color="#fff" /> : <Text style={styles.loginButtonText}>Reset</Text>}
       </TouchableOpacity>
     </View>
   );
@@ -101,6 +139,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
+    height:50
   },
   loginButtonText: {
     color: '#fff',

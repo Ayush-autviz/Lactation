@@ -5,6 +5,10 @@ import { COLORS, FONTS } from '../Constants/Theme';
 import Input from '../Components/Input';
 import Header from '../Components/Header';
 import { navigate } from '../utils/NavigationUtil';
+import { useForgotPasswordMutation } from '../store/apis/publicAuthApi';
+import { useDispatch } from 'react-redux';
+import { BallIndicator } from 'react-native-indicators';
+import Snackbar from 'react-native-snackbar';
 
 type ResetPasswordScreenProps = {
     navigation: any;
@@ -12,13 +16,31 @@ type ResetPasswordScreenProps = {
 
 
 const ResetPassword: React.FC<ResetPasswordScreenProps> = () => {
+  const [email, setEmail] = useState<string>('email@gmail.com');
+  const [forgotPassword, { isLoading, error }] = useForgotPasswordMutation();
 
-  const [email, setEmail] = useState<string>('info@gmail.com');
-  const [password, setPassword] = useState<string>('••••••••••••');
-
-  const handleNavigation = ()=>{
-    navigate("OtpScreen")
-  }
+  const handleResetPassword = async () => {
+    try {
+      const data = {
+        email: email,
+      };
+      const response = await forgotPassword(data).unwrap();
+      Snackbar.show({
+        text: 'Otp sent sucessfuly',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+      navigate("OtpScreen",{email:email})
+    } catch (err: any) {
+      const errorMessage = err?.data?.message || 'Login failed. Please try again.';
+      Snackbar.show({
+        text: 'Failed',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor:COLORS.secondary
+      });
+      console.log(err)
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -47,8 +69,8 @@ const ResetPassword: React.FC<ResetPasswordScreenProps> = () => {
       />
 
       {/* Login Button */}
-      <TouchableOpacity onPress={handleNavigation} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Send</Text>
+      <TouchableOpacity onPress={handleResetPassword} style={styles.loginButton}>
+        {isLoading ? <BallIndicator size={20} color="#fff" /> : <Text style={styles.loginButtonText}>Continue</Text>}
       </TouchableOpacity>
     </View>
   );
@@ -96,6 +118,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
+    height:50
   },
   loginButtonText: {
     color: '#fff',
