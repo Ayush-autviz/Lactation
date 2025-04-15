@@ -16,7 +16,7 @@ const Splash: React.FC<SplashScreenProps> = ({ navigation }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   const handleNavigation = useCallback(() => {
-    resetAndNavigate(isAuthenticated ? 'Tabs' : 'Login');
+    resetAndNavigate(!isAuthenticated ? 'Tabs' : 'Login');
   }, [isAuthenticated, navigation]);
 
   useEffect(() => {

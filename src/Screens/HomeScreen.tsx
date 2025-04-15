@@ -53,7 +53,7 @@ interface AppointmentCardProps {
 
 // Reusable Appointment Card Component
 const AppointmentCard = memo(({ title, time, colors }: AppointmentCardProps) => (
-  <CustomCard Colors={colors}>
+  <CustomCard Colors={colors} style={{marginTop:20}}>
     <View style={styles.cardContent}>
       <Image 
         source={require("../assets/images/calendar.png")} 

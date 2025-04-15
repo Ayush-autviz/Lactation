@@ -36,6 +36,8 @@ export const SIZES = {
 	fontMd:16,
 	fontSm:13,
 	fontXs:12,
+	fontXl:25,
+	font2Xl:32,
 
 	//radius
     radius:15,
@@ -66,6 +68,8 @@ export const FONTS = {
 	fontXs : {fontSize:SIZES.fontXs,color: COLORS.text, lineHeight:14, fontFamily:'Lato-Regular'},
 	fontLg : {fontSize:SIZES.fontLg,color: COLORS.text, lineHeight:24, fontFamily:'Lato-Regular'},
 	fontMd : {fontSize:SIZES.fontMd,color: COLORS.text, lineHeight:20, fontFamily:'Lato-Regular'},
+	fontXl : {fontSize:SIZES.fontXl,color: COLORS.text, lineHeight:24, fontFamily:'Lato-Regular'},
+	font2Xl : {fontSize:SIZES.font2Xl,color: COLORS.text, lineHeight:30, fontFamily:'Lato-Regular'},
 
     h1     : {fontSize:SIZES.h1, color:COLORS.title, fontFamily:'JosefinSans-Medium'},
     h2     : {fontSize:SIZES.h2, color:COLORS.title, fontFamily:'JosefinSans-Medium'},

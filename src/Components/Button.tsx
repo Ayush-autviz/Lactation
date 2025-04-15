@@ -7,6 +7,7 @@ import {
   TextStyle,
   GestureResponderEvent,
 } from 'react-native';
+import { SIZES,FONTS } from '../Constants/Theme';
 
 interface ButtonProps {
   style?: ViewStyle | ViewStyle[];
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     borderColor: '#2CBCCA',
   },
   text: {
+    ...FONTS.fontMd,
     color: '#fff',
   },
 });

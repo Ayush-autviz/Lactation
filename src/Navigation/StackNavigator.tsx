@@ -8,6 +8,11 @@ import CreateNewPassword from '../Screens/CreateNewPassword';
 import OtpScreen from '../Screens/OtpScreen';
 import NotificationScreen from '../Screens/NotificationScreen';
 import TimeSelector from '../Screens/SlotScreens';
+import TrackingScreen from '../Screens/TrackingScreen';
+import WaterIntakeTracker from '../Screens/WaterTracker';
+import FeedingTrackerScreen from '../Screens/FeedingTracker';
+import BreathingExerciseScreen from '../Screens/ExerciseScreen';
+import ProfileScreen from '../Screens/ProfileScreen';
 
 
 
@@ -21,6 +26,9 @@ export type StackParamList = {
   OtpScreen:undefined;
   Notification:undefined;
   SlotScreen:undefined;
+  WaterTracking:undefined;
+  FeedingTracking:undefined;
+  ExerciseScreen:undefined;
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -69,6 +77,23 @@ const StackNavigator: React.FC = () => {
       <Stack.Screen 
         name="SlotScreen" 
         component={TimeSelector}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="WaterTracking" 
+        component={WaterIntakeTracker}
+        options={{ headerShown: false }}
+      />
+
+       <Stack.Screen 
+        name="FeedingTracking" 
+        component={FeedingTrackerScreen}
+        options={{ headerShown: false }}
+      />
+
+       <Stack.Screen 
+        name="ExerciseScreen" 
+        component={BreathingExerciseScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
