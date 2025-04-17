@@ -13,6 +13,9 @@ import WaterIntakeTracker from '../Screens/WaterTracker';
 import FeedingTrackerScreen from '../Screens/FeedingTracker';
 import BreathingExerciseScreen from '../Screens/ExerciseScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
+import BookingSuccessScreen from '../Screens/BookingSuccesScreen';
+import BookingHistory from '../Screens/BookingHistory';
+import UpcomingBookingsScreen from '../Screens/UpcomigBookingScreen';
 
 
 
@@ -29,6 +32,9 @@ export type StackParamList = {
   WaterTracking:undefined;
   FeedingTracking:undefined;
   ExerciseScreen:undefined;
+  BookingSuccesScreen:undefined;
+  UpcomingBookingsScreen:undefined;
+  BookingsHistoryScreen:undefined;
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -96,6 +102,24 @@ const StackNavigator: React.FC = () => {
         component={BreathingExerciseScreen}
         options={{ headerShown: false }}
       />
+      <Stack.Screen 
+        name="BookingSuccesScreen" 
+        component={BookingSuccessScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen 
+        name="UpcomingBookingsScreen" 
+        component={UpcomingBookingsScreen}
+        options={{ headerShown: false }}
+      />
+
+       <Stack.Screen 
+        name="BookingsHistoryScreen" 
+        component={BookingHistory}
+        options={{ headerShown: false }}
+      />
+
     </Stack.Navigator>
   );
 };

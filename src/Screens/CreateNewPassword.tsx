@@ -36,7 +36,7 @@ const CreateNewPassword: React.FC<ResetPasswordScreenProps> = ({route}) => {
       const response = await resetPassword(data).unwrap();
       console.log(response,'response'); 
       Snackbar.show({
-        text: 'Password Reset Sucessfully',
+        text: response.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });
@@ -45,7 +45,7 @@ const CreateNewPassword: React.FC<ResetPasswordScreenProps> = ({route}) => {
       const errorMessage = err?.data?.message || 'Login failed. Please try again.';
       console.log(err)
       Snackbar.show({
-        text: 'Failed to reset the Password',
+        text: err.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });

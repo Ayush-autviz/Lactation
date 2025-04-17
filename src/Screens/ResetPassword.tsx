@@ -26,7 +26,7 @@ const ResetPassword: React.FC<ResetPasswordScreenProps> = () => {
       };
       const response = await forgotPassword(data).unwrap();
       Snackbar.show({
-        text: 'Otp sent sucessfuly',
+        text: response.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });
@@ -34,7 +34,7 @@ const ResetPassword: React.FC<ResetPasswordScreenProps> = () => {
     } catch (err: any) {
       const errorMessage = err?.data?.message || 'Login failed. Please try again.';
       Snackbar.show({
-        text: 'Failed',
+        text: err.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });

@@ -65,6 +65,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       state.isLoading = false;
       state.error = null;
+      state.domain = null;
     },
     updateDomain: (state, action: PayloadAction<string>) => {
       state.domain = action.payload;

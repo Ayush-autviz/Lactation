@@ -5,21 +5,21 @@ export const publicAuthApi = createApi({
   reducerPath: 'publicAuthApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8000', // Adjust base URL as needed
-    // prepareHeaders: (headers, { getState }) => {
-    //   // Access the Redux state
-    //   const state = getState() as RootState;
-    //   const domain = state.auth.domain; // Assuming 'auth' is the slice name in your store
-    //   // console.log(domain,'domainn')
-    //   // headers.set('Host', `${domain}`);
-    //   // Set the Host header dynamically if domain exists, otherwise use a default
-    //   // if (domain) {
-        
-    //   // } else {
-    //   //   headers.set('Host', 'kaku.localhost'); // Fallback default
-    //   // }
+    prepareHeaders: (headers, { getState }) => {
+      // Access the Redux state
+      const state = getState() as RootState;
+      const domain = state.auth.domain; // Assuming 'auth' is the slice name in your store
+      console.log(domain,'domainn api')
+      //headers.set('Host', `${domain}`);
+      // Set the Host header dynamically if domain exists, otherwise use a default
+      if (domain) {
+        headers.set('Host', `${domain}`);
+      } else {
+        headers.set('Host', 'kaku.localhost'); // Fallback default
+      }
 
-    //   return headers;
-    // },
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     login: builder.mutation<
@@ -27,7 +27,7 @@ export const publicAuthApi = createApi({
       { email: string; password: string }
     >({
       query: (credentials) => ({
-        url: 'public/login/',
+        url: 'tenant/login/',
         method: 'POST',
         body: credentials,
       }),
@@ -37,7 +37,7 @@ export const publicAuthApi = createApi({
       { email: string }
     >({
       query: (userData) => ({
-        url: 'public/forgot-password/',
+        url: 'tenant/forgot-password/',
         method: 'POST',
         body: userData,
       }),
@@ -47,7 +47,7 @@ export const publicAuthApi = createApi({
     { email:string,otp:string }
   >({
     query: (userData) => ({
-      url: 'public/verify-otp/',
+      url: 'tenant/verify-reset-otp/',
       method: 'POST',
       body: userData,
     }),
@@ -57,7 +57,7 @@ export const publicAuthApi = createApi({
   { email:string,reset_token:string,new_password:string,confirm_password:string }
 >({
   query: (userData) => ({
-    url: 'public/reset-password/',
+    url: 'tenant/reset-password/',
     method: 'POST',
     body: userData,
   }),
@@ -67,7 +67,7 @@ getDomain: builder.mutation<
 { email:string }
 >({
 query: (userData) => ({
-  url: 'tenant/get-domain/',
+  url: 'public/get-domain/',
   method: 'POST',
   body: userData,
 }),

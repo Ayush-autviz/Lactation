@@ -66,7 +66,7 @@ const OtpScreen: React.FC<VerificationScreenProps> = ({route}) => {
       };  
       const response = await verifyOtp(data).unwrap();
       Snackbar.show({
-        text: 'Otp verified sucessfully',
+        text: response.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });
@@ -74,7 +74,7 @@ const OtpScreen: React.FC<VerificationScreenProps> = ({route}) => {
     } catch (err: any) {
       const errorMessage = err?.data?.message || 'Login failed. Please try again.';
       Snackbar.show({
-        text: 'Invalid otp',
+        text: err.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });

@@ -35,13 +35,13 @@ const LoginScreen: React.FC = () => {
         password: password
       };
 
-     // const domain = await getdomain({email:email}).unwrap()
-      
+      const domain = await getdomain({email:email}).unwrap()
+      dispatch(updateDomain(domain.data.domain));
 
-     // console.log(domain,'dpomainn')
+      console.log(domain,'dpomainn logi screem')
       
       const response = await login(credentials).unwrap();
-     // dispatch(updateDomain(domain.data.domain));
+     
 
       console.log(response,'response');
       
@@ -54,12 +54,12 @@ const LoginScreen: React.FC = () => {
 
       console.log(authData,'authData')
       Snackbar.show({
-        text: 'Login successfuly',
+        text: response.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary,
         fontFamily:'Lato-Regular'
       });
-      dispatch(updateDomain(response.data.user.domain));
+      //dispatch(updateDomain(response.data.user.domain));
       dispatch(loginSuccess(authData));
 
       navigate('Tabs'); // Adjust to your main screen route
@@ -69,7 +69,7 @@ const LoginScreen: React.FC = () => {
       console.log(err)
 
       Snackbar.show({
-        text: 'Login failed',
+        text: err.message,
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor:COLORS.secondary
       });

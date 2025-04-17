@@ -86,7 +86,7 @@ const TrackingScreen = () => {
   // Main Render
   return (
     <View style={styles.container}>
-      <Header title="Track" />
+      <Header title="Track" backButton={false} />
       {renderWaterFeedingSection()}
       {renderWellnessActivities()}
       {renderTodaySummary()}

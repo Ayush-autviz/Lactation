@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    marginTop:20,
+   // marginTop:20,
     width:SIZES.width/3-20,
     height:110,
     shadowOpacity: 0.1,
